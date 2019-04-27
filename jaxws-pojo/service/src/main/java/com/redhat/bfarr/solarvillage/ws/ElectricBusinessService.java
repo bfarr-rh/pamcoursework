@@ -21,23 +21,40 @@ import javax.jws.WebService;
 import javax.jws.soap.SOAPBinding;
 import com.redhat.bfarr.solarvillage.datamodel.*;
 
+import java.util.Date;
+
 @WebService
 @SOAPBinding(style = SOAPBinding.Style.RPC)
 public class ElectricBusinessService {
+    private static String statusToSet = Status.APPROVED.value();
+
+
     @WebMethod
     public String echo(String input) {
         return "ElectricBusinessService pojo: " + input;
     }
 
+    @WebMethod
+    public String statusToSet(String input) {
+        statusToSet = input;
+        return statusToSet;
+    }
+
+    @WebMethod
     public ElectricPermit submitPermitRequest(ElectricPermit electricPermit) {
-        return null;
+        electricPermit.setDateSubmitted(new Date());
+        return electricPermit;
     }
 
+    @WebMethod
     public ElectricPermit getPermitRequestStatus(ElectricPermit electricPermit) {
-        return null;
+        electricPermit.setStatus(statusToSet);
+        return electricPermit;
     }
 
-    public String rescindPermit(ElectricPermit electricPermit) {
-        return "";
+    @WebMethod
+    public ElectricPermit rescindPermit(ElectricPermit electricPermit) {
+        electricPermit.setStatus(Status.CANCELLED.value());
+        return electricPermit;
     }
 }

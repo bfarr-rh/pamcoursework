@@ -19,6 +19,7 @@ public class StructuralPermit implements Serializable {
 	private String postCode;
 	
 	private String status; // None, Approved, Denied, Cancelled
+	private Date dateSubmitted;
 
 	public Integer getStructuralPermitId() {
 		return structuralPermitId;
@@ -83,6 +84,27 @@ public class StructuralPermit implements Serializable {
 	public void setStatus(String status) {
 		this.status = status;
 	}
-	
-	
+
+	public Date getDateSubmitted() {
+		return dateSubmitted;
+	}
+
+	public void setDateSubmitted(Date dateSubmitted) {
+		this.dateSubmitted = dateSubmitted;
+	}
+
+	@Override
+	public String toString() {
+		return "StructuralPermit{" +
+				"structuralPermitId=" + structuralPermitId +
+				", firstName='" + firstName + '\'' +
+				", lastName='" + lastName + '\'' +
+				", dob=" + dob +
+				", addressLine1='" + addressLine1 + '\'' +
+				", addressLine2='" + addressLine2 + '\'' +
+				", postCode='" + postCode + '\'' +
+				", status='" + status + '\'' +
+				", dateSubmitted=" + dateSubmitted +
+				'}';
+	}
 }

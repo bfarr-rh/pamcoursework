@@ -20,28 +20,43 @@ import javax.jws.WebMethod;
 import javax.jws.WebService;
 import javax.jws.soap.SOAPBinding;
 import com.redhat.bfarr.solarvillage.datamodel.*;
+import java.util.Date;
 
 @WebService
 @SOAPBinding(style = SOAPBinding.Style.RPC)
 public class StructuralBusinessService {
+
+    private static String statusToSet = Status.APPROVED.value();
+
     @WebMethod
     public String echo(String input) {
         return "StructuralBusinessService pojo: " + input;
     }
 
+    @WebMethod
+    public String statusToSet(String input) {
+        statusToSet = input;
+        return statusToSet;
+    }
+
+
+    @WebMethod
     public StructuralPermit submitPermitRequest(StructuralPermit structuralPermit) {
-        if (structuralPermit != null) {
-
-        }
+        structuralPermit.setDateSubmitted(new Date());
         return structuralPermit;
     }
 
+    @WebMethod
     public StructuralPermit getPermitRequestStatus(StructuralPermit structuralPermit) {
+        structuralPermit.setStatus(statusToSet);
         return structuralPermit;
     }
 
-    public String rescindPermit(StructuralPermit structuralPermit) {
-        return "";
+    @WebMethod
+    public StructuralPermit rescindPermit(StructuralPermit structuralPermit) {
+        structuralPermit.setStatus(Status.CANCELLED.value());
+        return structuralPermit;
     }
+
 
 }
