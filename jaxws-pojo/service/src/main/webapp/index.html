@@ -1,0 +1,87 @@
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Solar Village</title>
+    <script
+            src="https://code.jquery.com/jquery-3.4.0.min.js"
+            integrity="sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg="
+            crossorigin="anonymous"></script>
+    <script src="sv.js"></script>
+</head>
+
+<body>
+<div>
+    <p> Add a user salesman, with group sales and password salesman1! using adduser script in jboss/bin directory</p>
+    <p>To run this without deploying on the server please enable CORS for the kie server https://access.redhat.com/solutions/4036301</p>
+    <p>Initiate a Process</p>
+    <div><label>User name KIE Rest API</label>
+        <input id="username" type="text" value="erics" /></div>
+    <div><label>Password</label>
+        <input id="password" type="text" value="password" /></div>
+
+    <div><label>Container Id</label>
+    <input id="containerid" type="text" value="sv2_1.10-SNAPSHOT" /></div>
+    <div><label>Process Instance Id</label>
+        <input id="processInstanceId" type="text" value="" /></div>
+
+    <div><label>Please adjust values as you need below</label>
+    <input id="step1_url" type="text" size="130"
+           value="http://localhost:8080/kie-server/services/rest/server/containers/sv2_1.10-SNAPSHOT/processes/solarvillage.NewOrderPermiiting/instances"/>
+    </div>
+    <div>
+        <label>NewOrder - json format</label>
+        <textarea id="step1_json" rows="10" cols="130">
+    {
+	    "newOrder" :{
+            "com.redhat.bfarr.solarvillage.businessprocess.NewOrder": {
+                "firstName": "Ben",
+                "lastName" : "Smith",
+                "dob" : "2000-07-30",
+                "addressLine1":"16 Smith Street" ,
+                "addressLine2":"Melbourne" ,
+                 "postCode":"3000" ,
+                "memberOfHOA": "true",
+                "hoaName": "Smiths"
+            }
+        }
+    }
+    </textarea>
+    </div>
+    <button id="step1_button">Submit Step 1</button>
+
+    <div>
+        <button id="step2_button">Step 2 - List available Processes</button>
+        <div><label>Please adjust values as you need below</label>
+            <input id="step2_url" type="text" size="130"
+                   value="http://localhost:8080/kie-server/services/rest/server/queries/tasks/instances/pot-owners?groups=sales" />
+        </div>
+        <div>
+            <textarea id="step2_json" rows="10" cols="130"></textarea>
+        </div>
+    </div>
+
+    <div><label>User name KIE Rest API</label>
+        <input id="username1" type="text" value="salesman" /></div>
+    <div><label>Password</label>
+        <input id="password1" type="text" value="salesman1!" /></div>
+
+    <div>
+        <button id="step3_button">Step 3 - Claim task for salesman</button>
+        <div><label>Please adjust values as you need below</label>
+            <input id="step3_url" type="text" size="130"
+                   value="http://localhost:8080/kie-server/services/rest/server/containers/sv2_1.10-SNAPSHOT/tasks/3/states/claimed" />
+
+    </div>
+    <div>
+        <button id="step4_button">Step 4 - Start task for salesman</button>
+        <div><label>Please adjust values as you need below</label>
+            <input id="step4_url" type="text" size="130"
+                   value="http://localhost:8080/kie-server/services/rest/server/containers/sv2_1.10-SNAPSHOT/tasks/3/states/started" />
+        </div>
+    </div>
+</div>
+</body>
+</html>
