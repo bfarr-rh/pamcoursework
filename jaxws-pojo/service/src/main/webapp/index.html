@@ -15,7 +15,8 @@
 <body>
 <div>
     <p> Add a user salesman, with group sales and password salesman1! using adduser script in jboss/bin directory</p>
-    <p>To run this without deploying on the server please enable CORS for the kie server https://access.redhat.com/solutions/4036301</p>
+    <p>To run this you may need to enable CORS for the kie server https://access.redhat.com/solutions/4036301</p>
+    <p>To adjust the default value of mocked Government services please change via this link <a href="http://localhost:8080/jaxws-pojo-endpoint/status.jsp"></a></p>
     <p>Initiate a Process</p>
     <div><label>User name KIE Rest API</label>
         <input id="username" type="text" value="erics" /></div>
@@ -29,13 +30,13 @@
 
     <div><label>Please adjust values as you need below</label>
     <input id="step1_url" type="text" size="130"
-           value="http://localhost:8080/kie-server/services/rest/server/containers/sv2_1.10-SNAPSHOT/processes/solarvillage.NewOrderPermiiting/instances"/>
+           value="http://localhost:8080/kie-server/services/rest/server/containers/sv2_1.11-SNAPSHOT/processes/solarvillage.NewOrderPermiiting/instances"/>
     </div>
     <div>
         <label>NewOrder - json format</label>
         <textarea id="step1_json" rows="10" cols="130">
     {
-	    "newOrder" :{
+	    "NewOrder" :{
             "com.redhat.bfarr.solarvillage.businessprocess.NewOrder": {
                 "firstName": "Ben",
                 "lastName" : "Smith",
@@ -54,7 +55,7 @@
 
     <div>
         <button id="step2_button">Step 2 - List available Processes</button>
-        <div><label>Please adjust values as you need below</label>
+        <div><label>Step 2 URL</label>
             <input id="step2_url" type="text" size="130"
                    value="http://localhost:8080/kie-server/services/rest/server/queries/tasks/instances/pot-owners?groups=sales" />
         </div>
@@ -70,18 +71,25 @@
 
     <div>
         <button id="step3_button">Step 3 - Claim task for salesman</button>
-        <div><label>Please adjust values as you need below</label>
+        <div><label>Step 3 URL</label>
             <input id="step3_url" type="text" size="130"
-                   value="http://localhost:8080/kie-server/services/rest/server/containers/sv2_1.10-SNAPSHOT/tasks/3/states/claimed" />
+                   value="http://localhost:8080/kie-server/services/rest/server/containers/sv2_1.11-SNAPSHOT/tasks/3/states/claimed" />
 
     </div>
     <div>
         <button id="step4_button">Step 4 - Start task for salesman</button>
-        <div><label>Please adjust values as you need below</label>
+        <div><label>Step 4 URL</label>
             <input id="step4_url" type="text" size="130"
-                   value="http://localhost:8080/kie-server/services/rest/server/containers/sv2_1.10-SNAPSHOT/tasks/3/states/started" />
+                   value="http://localhost:8080/kie-server/services/rest/server/containers/sv2_1.11-SNAPSHOT/tasks/3/states/started" />
         </div>
     </div>
+        <div>
+            <button id="step5_button">Step 5 - Complete task for salesman</button>
+            <div><label>Step 5 URL</label>
+                <input id="step5_url" type="text" size="130"
+                       value="http://localhost:8080/kie-server/services/rest/server/containers/sv2_1.11-SNAPSHOT/tasks/3/states/completed" />
+            </div>
+        </div>
 </div>
 </body>
 </html>

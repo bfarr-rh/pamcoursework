@@ -26,7 +26,7 @@ import java.util.Date;
 @SOAPBinding(style = SOAPBinding.Style.RPC)
 public class StructuralBusinessService {
 
-    private static String statusToSet = Status.APPROVED.value();
+    public static String statusToSet = Status.APPROVED.value();
 
     @WebMethod
     public String echo(String input) {
@@ -42,18 +42,22 @@ public class StructuralBusinessService {
 
     @WebMethod
     public StructuralPermit submitPermitRequest(StructuralPermit structuralPermit) {
+        System.out.println("Received submitPermitRequest " + structuralPermit.toString());
         structuralPermit.setDateSubmitted(new Date());
         return structuralPermit;
     }
 
     @WebMethod
     public StructuralPermit getPermitRequestStatus(StructuralPermit structuralPermit) {
+        System.out.println("Received getPermitRequestStatus " + structuralPermit.toString());
+        System.out.println("Setting status " + statusToSet);
         structuralPermit.setStatus(statusToSet);
         return structuralPermit;
     }
 
     @WebMethod
     public StructuralPermit rescindPermit(StructuralPermit structuralPermit) {
+        System.out.println("Received rescindPermit " + structuralPermit.toString());
         structuralPermit.setStatus(Status.CANCELLED.value());
         return structuralPermit;
     }

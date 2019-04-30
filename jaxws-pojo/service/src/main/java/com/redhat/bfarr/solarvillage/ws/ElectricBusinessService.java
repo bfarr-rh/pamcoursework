@@ -26,7 +26,7 @@ import java.util.Date;
 @WebService
 @SOAPBinding(style = SOAPBinding.Style.RPC)
 public class ElectricBusinessService {
-    private static String statusToSet = Status.APPROVED.value();
+    public static String statusToSet = Status.APPROVED.value();
 
 
     @WebMethod
@@ -42,18 +42,22 @@ public class ElectricBusinessService {
 
     @WebMethod
     public ElectricPermit submitPermitRequest(ElectricPermit electricPermit) {
+        System.out.println("Received submitPermitRequest " + electricPermit.toString());
         electricPermit.setDateSubmitted(new Date());
         return electricPermit;
     }
 
     @WebMethod
     public ElectricPermit getPermitRequestStatus(ElectricPermit electricPermit) {
+        System.out.println("Received getPermitRequestStatus " + electricPermit.toString());
+        System.out.println("Setting status " + statusToSet);
         electricPermit.setStatus(statusToSet);
         return electricPermit;
     }
 
     @WebMethod
     public ElectricPermit rescindPermit(ElectricPermit electricPermit) {
+        System.out.println("Received rescindPermit " + electricPermit.toString());
         electricPermit.setStatus(Status.CANCELLED.value());
         return electricPermit;
     }
