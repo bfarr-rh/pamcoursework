@@ -22,12 +22,13 @@ import javax.jws.soap.SOAPBinding;
 import com.redhat.bfarr.solarvillage.datamodel.*;
 
 import java.util.Date;
+import java.util.concurrent.atomic.AtomicInteger;
 
 @WebService
-@SOAPBinding(style = SOAPBinding.Style.RPC)
+@SOAPBinding(style = SOAPBinding.Style.DOCUMENT)
 public class ElectricBusinessService {
     public static String statusToSet = Status.APPROVED.value();
-
+    private static AtomicInteger id = new AtomicInteger(0);
 
     @WebMethod
     public String echo(String input) {
@@ -41,24 +42,21 @@ public class ElectricBusinessService {
     }
 
     @WebMethod
-    public ElectricPermit submitPermitRequest(ElectricPermit electricPermit) {
+    public String submitPermitRequest(String electricPermit) {
         System.out.println("Received submitPermitRequest " + electricPermit.toString());
-        electricPermit.setDateSubmitted(new Date());
-        return electricPermit;
+        return ""+id.getAndIncrement();
     }
 
     @WebMethod
-    public ElectricPermit getPermitRequestStatus(ElectricPermit electricPermit) {
-        System.out.println("Received getPermitRequestStatus " + electricPermit.toString());
+    public String getPermitRequestStatus(String electricPermitId) {
+        System.out.println("Received getPermitRequestStatus " + electricPermitId);
         System.out.println("Setting status " + statusToSet);
-        electricPermit.setStatus(statusToSet);
-        return electricPermit;
+        return statusToSet;
     }
 
     @WebMethod
-    public ElectricPermit rescindPermit(ElectricPermit electricPermit) {
-        System.out.println("Received rescindPermit " + electricPermit.toString());
-        electricPermit.setStatus(Status.CANCELLED.value());
-        return electricPermit;
+    public Boolean rescindPermit(String electricPermitId) {
+        System.out.println("Received rescindPermit " + electricPermitId);
+        return true;
     }
 }

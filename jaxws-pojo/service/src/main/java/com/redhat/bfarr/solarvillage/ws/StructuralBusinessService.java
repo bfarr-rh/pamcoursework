@@ -20,12 +20,12 @@ import javax.jws.WebMethod;
 import javax.jws.WebService;
 import javax.jws.soap.SOAPBinding;
 import com.redhat.bfarr.solarvillage.datamodel.*;
-import java.util.Date;
+import java.util.concurrent.atomic.AtomicInteger;
 
 @WebService
 @SOAPBinding(style = SOAPBinding.Style.RPC)
 public class StructuralBusinessService {
-
+    private static AtomicInteger id = new AtomicInteger(0);
     public static String statusToSet = Status.APPROVED.value();
 
     @WebMethod
@@ -41,25 +41,22 @@ public class StructuralBusinessService {
 
 
     @WebMethod
-    public StructuralPermit submitPermitRequest(StructuralPermit structuralPermit) {
-        System.out.println("Received submitPermitRequest " + structuralPermit.toString());
-        structuralPermit.setDateSubmitted(new Date());
-        return structuralPermit;
+    public String submitPermitRequest(String structuralPermit) {
+        System.out.println("Received submitPermitRequest " + structuralPermit);
+        return ""+id.getAndIncrement();
     }
 
     @WebMethod
-    public StructuralPermit getPermitRequestStatus(StructuralPermit structuralPermit) {
-        System.out.println("Received getPermitRequestStatus " + structuralPermit.toString());
+    public String getPermitRequestStatus(String structuralPermit) {
+        System.out.println("Received getPermitRequestStatus " + structuralPermit);
         System.out.println("Setting status " + statusToSet);
-        structuralPermit.setStatus(statusToSet);
-        return structuralPermit;
+        return statusToSet;
     }
 
     @WebMethod
-    public StructuralPermit rescindPermit(StructuralPermit structuralPermit) {
-        System.out.println("Received rescindPermit " + structuralPermit.toString());
-        structuralPermit.setStatus(Status.CANCELLED.value());
-        return structuralPermit;
+    public Boolean rescindPermit(String electricPermitId) {
+        System.out.println("Received rescindPermit " + electricPermitId);
+        return true;
     }
 
 
