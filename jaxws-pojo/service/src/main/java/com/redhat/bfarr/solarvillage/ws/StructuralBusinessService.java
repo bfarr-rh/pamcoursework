@@ -42,8 +42,10 @@ public class StructuralBusinessService {
 
     @WebMethod
     public String submitPermitRequest(String structuralPermit) {
-        System.out.println("Received submitPermitRequest " + structuralPermit);
-        return ""+id.getAndIncrement();
+        System.out.println("Received structural submitPermitRequest " + structuralPermit);
+        String result = ""+id.getAndIncrement();
+        System.out.println("Returning : " + result);
+        return result;
     }
 
     @WebMethod

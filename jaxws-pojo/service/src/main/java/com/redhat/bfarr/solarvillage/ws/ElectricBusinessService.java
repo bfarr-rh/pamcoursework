@@ -21,11 +21,10 @@ import javax.jws.WebService;
 import javax.jws.soap.SOAPBinding;
 import com.redhat.bfarr.solarvillage.datamodel.*;
 
-import java.util.Date;
 import java.util.concurrent.atomic.AtomicInteger;
 
 @WebService
-@SOAPBinding(style = SOAPBinding.Style.DOCUMENT)
+@SOAPBinding(style = SOAPBinding.Style.RPC)
 public class ElectricBusinessService {
     public static String statusToSet = Status.APPROVED.value();
     private static AtomicInteger id = new AtomicInteger(0);
@@ -43,8 +42,10 @@ public class ElectricBusinessService {
 
     @WebMethod
     public String submitPermitRequest(String electricPermit) {
-        System.out.println("Received submitPermitRequest " + electricPermit.toString());
-        return ""+id.getAndIncrement();
+        System.out.println("Received electric submitPermitRequest " + electricPermit);
+        String result = ""+id.getAndIncrement();
+        System.out.println("Returning : " + result);
+        return result;
     }
 
     @WebMethod
