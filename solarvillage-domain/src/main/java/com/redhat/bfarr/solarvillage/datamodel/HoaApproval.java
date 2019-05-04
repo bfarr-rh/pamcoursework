@@ -12,6 +12,8 @@ public class HoaApproval implements Serializable {
 	private Integer newOrderId;
 	private String notes;
 	private String salesAgentName;
+	private String status = Status.NONE.value();
+
 	public Date getDate() {
 		return date;
 	}
@@ -42,6 +44,12 @@ public class HoaApproval implements Serializable {
 	public void setSalesAgentName(String salesAgentName) {
 		this.salesAgentName = salesAgentName;
 	}
-	
-	
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
 }
