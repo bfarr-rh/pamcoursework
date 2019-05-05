@@ -40,6 +40,7 @@
             <li><a href="#tabs-6">Step 5</a></li>
             <li><a href="#tabs-7">Step 6</a></li>
             <li><a href="#tabs-8">Step 7</a></li>
+            <li><a href="#tabs-9">Completed</a></li>
         </ul>
         <div id="tabs-1">
             <p>This page guides you through the setup and initiation of the SolarVillage New Order Process</p>
@@ -51,7 +52,7 @@
 
 
             <div><label>Container Id {containerId} will be replaced in urls: </label>
-                <input id="containerid" type="text" value="sv2_1.47" /></div>
+                <input id="containerid" type="text" value="sv2_1.48" /></div>
 
 
             <div><label>User name KIE Rest API :</label>
@@ -126,7 +127,7 @@
             <div>
 
                 <div><label>URL:</label>
-                    <input id="step3_url" type="text" size="130"
+                    <input id="step3a_url" type="text" size="130"
                            value="http://localhost:8080/kie-server/services/rest/server/containers/{containerId}/tasks/{taskid}/states/claimed" />
 
                 </div>
@@ -171,18 +172,47 @@
                 <textarea id="step4_json" rows="15" cols="130"></textarea>
             </div>
         </div>
+
         <div id="tabs-6">
+            <p>We now need to claim, start and complete the Hoa Approval Task with the buttons below, the salesmand user will be used.</p>
+            <div>
+                <button id="step6a_button">Claim task</button>
+            </div>
+            <br/>
+            <div>
+
+                <div><label>URL:</label>
+                    <input id="step6a_url" type="text" size="130"
+                           value="http://localhost:8080/kie-server/services/rest/server/containers/{containerId}/tasks/{taskid}/states/claimed" />
+
+                </div>
+            </div>
+            <br/>
+            <div>
+                <button id="step6b_button">Start task</button>
+            </div>
+            <br/>
+            <div>
+                <div><label>URL:</label>
+                    <input id="step6b_url" type="text" size="130"
+                           value="http://localhost:8080/kie-server/services/rest/server/containers/{containerId}/tasks/{taskid}/states/started" />
+                </div>
+            </div>
+            <br/>
+
+        </div>
+        <div id="tabs-7">
             <p>We are now setting the Hoa Approval to Approved to Denied, please update JSON as required</p>
             <p>View variables to confirm update</p>
-            <div><button id="step5a_button">View Current Variables</button><button id="step5b_button">Update Approval</button></div>
+            <div><button id="step7a_button">View Current Variables</button><button id="step7b_button">Update Approval</button></div>
             <br/>
             <div><label>URL:</label>
-                <input id="step5_url" type="text" size="130"
+                <input id="step7_url" type="text" size="130"
                        value="http://localhost:8080/kie-server/services/rest/server/containers/{containerId}/processes/instances/{processInstanceId}/variables" />
             </div>
             <br/>
             <div><label>HoaApproval - json format</label></p>
-            <textarea id="step5b_json" rows="5" cols="130">
+                <textarea id="step7b_json" rows="5" cols="130">
    {
         "HoaApproval" :{
               "com.redhat.bfarr.solarvillage.datamodel.HoaApproval": {
@@ -200,45 +230,24 @@
                 Current Process Variables
             </div>
             <div>
-                <textarea id="step5a_json" rows="15" cols="130"></textarea>
+                <textarea id="step7a_json" rows="15" cols="130"></textarea>
             </div>
         </div>
-        <div id="tabs-7">
-            <p>We now need to claim, start and complete the Hoa Approval Task with the buttons below, the salesmand user will be used.</p>
-            <div>
-                <button id="step6a_button">Claim task</button>
-            </div>
-            <br/>
-            <div>
+        <div id="tabs-8">
+            <p>This step triggers the completion of the Hoa Approval update done in the previous step.</p>
+            <p>The whole process should complete autonomously from this point</p>
 
-                <div><label>URL:</label>
-                    <input id="step6_url" type="text" size="130"
-                           value="http://localhost:8080/kie-server/services/rest/server/containers/{containerId}/tasks/{taskid}/states/claimed" />
-
-                </div>
-            </div>
-            <br/>
             <div>
-                <button id="step6b_button">Start task</button>
-            </div>
-            <br/>
-            <div>
+                <button id="step8_button">Complete task</button>
                 <div><label>URL:</label>
-                    <input id="step6b_url" type="text" size="130"
-                           value="http://localhost:8080/kie-server/services/rest/server/containers/{containerId}/tasks/{taskid}/states/started" />
-                </div>
-            </div>
-            <br/>
-            <div>
-                <button id="step6c_button">Complete task</button>
-                <div><label>URL:</label>
-                    <input id="step6c_url" type="text" size="130"
+                    <input id="step8_url" type="text" size="130"
                            value="http://localhost:8080/kie-server/services/rest/server/containers/{containerId}/tasks/{taskid}/states/completed" />
                 </div>
             </div>
         </div>
-        <div id="tabs-8">
-
+        <div id="tabs-9">
+            <p>Completed Task</p>
+            <p>Log into business central to review the process instance</p>
         </div>
     </div>
 

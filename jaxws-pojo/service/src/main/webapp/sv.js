@@ -72,19 +72,19 @@ $(document).ready(function() {
      $('#step3a_button').click(function () {
         var urlToCall = $('#step3a_url').val().replace('{containerId}', $('#containerid').val());
         urlToCall = urlToCall.replace('{taskid}', $('#currentTaskId').val());
-        doPut(urlToCall,4);
+        doPut(urlToCall,0);
      });
 
     $('#step3b_button').click(function () {
         var urlToCall = $('#step3b_url').val().replace('{containerId}', $('#containerid').val());
         urlToCall = urlToCall.replace('{taskid}', $('#currentTaskId').val());
-        doPut(urlToCall,4);
+        doPut(urlToCall,0);
      });
 
      $('#step3c_button').click(function () {
         var urlToCall = $('#step3c_url').val().replace('{containerId}', $('#containerid').val());
         urlToCall = urlToCall.replace('{taskid}', $('#currentTaskId').val());
-             doPut(urlToCall,5);
+             doPut(urlToCall,4);
           });
 
     $('#step4_button').click(function () {
@@ -129,9 +129,24 @@ $(document).ready(function() {
             });
      });
 
-    $('#step5a_button').click(function () {
+
+
+ $('#step6a_button').click(function () {
+        var urlToCall = $('#step6a_url').val().replace('{containerId}', $('#containerid').val());
+        urlToCall = urlToCall.replace('{taskid}', $('#currentTaskId').val());
+        doPut(urlToCall,0);
+     });
+
+    $('#step6b_button').click(function () {
+        var urlToCall = $('#step6b_url').val().replace('{containerId}', $('#containerid').val());
+        urlToCall = urlToCall.replace('{taskid}', $('#currentTaskId').val());
+        doPut(urlToCall,6);
+     });
+
+
+$('#step7a_button').click(function () {
         jQuery.support.cors = true;
-        var urlToCall = $('#step5_url').val().replace('{containerId}', $('#containerid').val());
+        var urlToCall = $('#step7_url').val().replace('{containerId}', $('#containerid').val());
         urlToCall = urlToCall.replace('{processInstanceId}', $('#processInstanceId').val());
         $.ajax(
             {
@@ -145,7 +160,7 @@ $(document).ready(function() {
                     },
                 success: function (data) {
                     var formattedData = JSON.stringify(data, null, '\t');
-                    $('#step5a_json').val(formattedData);
+                    $('#step7a_json').val(formattedData);
                 },
                 error: function (msg, url, line) {
                     alert('error trapped msg = ' + msg + ', url = ' + url + ', line = ' + line);
@@ -154,11 +169,11 @@ $(document).ready(function() {
             });
      });
 
-    $('#step5b_button').click(function () {
+    $('#step7b_button').click(function () {
         jQuery.support.cors = true;
-        var urlToCall = $('#step5_url').val().replace('{containerId}', $('#containerid').val());
+        var urlToCall = $('#step7_url').val().replace('{containerId}', $('#containerid').val());
         urlToCall = urlToCall.replace('{processInstanceId}', $('#processInstanceId').val());
-        var jsonToSend = $('#step5b_json').val();
+        var jsonToSend = $('#step7b_json').val();
         $.ajax(
             {
                 type: "POST",
@@ -170,32 +185,23 @@ $(document).ready(function() {
                         'Accept': '*/*',
                         'Authorization': "Basic " + btoa($("#username1").val() + ":" + $("#password1").val())
                     },
-                success: function (data) {
-                    alert('Updated');
-                },
-                error: function (msg, url, line) {
-                    alert('error trapped msg = ' + msg + ', url = ' + url + ', line = ' + line);
-
-                }
+                complete: function(xhr) {
+                     if (xhr.readyState == 4) {
+                         if (xhr.status == 201) {
+                             alert("Updated");
+                             $("#tabs").tabs("option", "active", 7);
+                         }
+                     } else {
+                         alert("Failed");
+                     }
+                 }
             });
      });
 
- $('#step6a_button').click(function () {
-        var urlToCall = $('#step6a_url').val().replace('{containerId}', $('#containerid').val());
+     $('#step8_button').click(function () {
+        var urlToCall = $('#step8_url').val().replace('{containerId}', $('#containerid').val());
         urlToCall = urlToCall.replace('{taskid}', $('#currentTaskId').val());
-        doPut(urlToCall,4);
-     });
-
-    $('#step6b_button').click(function () {
-        var urlToCall = $('#step6b_url').val().replace('{containerId}', $('#containerid').val());
-        urlToCall = urlToCall.replace('{taskid}', $('#currentTaskId').val());
-        doPut(urlToCall,4);
-     });
-
-     $('#step6c_button').click(function () {
-        var urlToCall = $('#step6c_url').val().replace('{containerId}', $('#containerid').val());
-        urlToCall = urlToCall.replace('{taskid}', $('#currentTaskId').val());
-             doPut(urlToCall,5);
+             doPut(urlToCall,8);
           });
 
 
@@ -216,7 +222,9 @@ $(document).ready(function() {
                      if (xhr.readyState == 4) {
                          if (xhr.status == 201) {
                              alert("Updated");
-                             $("#tabs").tabs("option", "active", tabid);
+                             if (tabid > 0) {
+                                $("#tabs").tabs("option", "active", tabid);
+                             }
                          }
                      } else {
                          alert("Failed");
