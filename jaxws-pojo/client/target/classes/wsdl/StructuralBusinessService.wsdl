@@ -1,0 +1,146 @@
+<?xml version='1.0' encoding='UTF-8'?><wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://ws.solarvillage.bfarr.redhat.com/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" name="StructuralBusinessServiceService" targetNamespace="http://ws.solarvillage.bfarr.redhat.com/">
+  <wsdl:types>
+    <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://ws.solarvillage.bfarr.redhat.com/" version="1.0">
+
+      <xs:complexType name="structuralPermit">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="addressLine1" type="xs:string"/>
+          <xs:element minOccurs="0" name="addressLine2" type="xs:string"/>
+          <xs:element minOccurs="0" name="dateSubmitted" type="xs:dateTime"/>
+          <xs:element minOccurs="0" name="dob" type="xs:dateTime"/>
+          <xs:element minOccurs="0" name="firstName" type="xs:string"/>
+          <xs:element minOccurs="0" name="lastName" type="xs:string"/>
+          <xs:element minOccurs="0" name="postCode" type="xs:string"/>
+          <xs:element minOccurs="0" name="status" type="xs:string"/>
+          <xs:element minOccurs="0" name="structuralPermitId" type="xs:int"/>
+        </xs:sequence>
+      </xs:complexType>
+
+    </xs:schema>
+  </wsdl:types>
+  <wsdl:message name="getPermitRequestStatusResponse">
+    <wsdl:part name="return" type="tns:structuralPermit">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="statusToSetResponse">
+    <wsdl:part name="return" type="xsd:string">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="echoResponse">
+    <wsdl:part name="return" type="xsd:string">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="rescindPermit">
+    <wsdl:part name="arg0" type="tns:structuralPermit">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="echo">
+    <wsdl:part name="arg0" type="xsd:string">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="statusToSet">
+    <wsdl:part name="arg0" type="xsd:string">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getPermitRequestStatus">
+    <wsdl:part name="arg0" type="tns:structuralPermit">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="submitPermitRequestResponse">
+    <wsdl:part name="return" type="tns:structuralPermit">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="rescindPermitResponse">
+    <wsdl:part name="return" type="tns:structuralPermit">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="submitPermitRequest">
+    <wsdl:part name="arg0" type="tns:structuralPermit">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="StructuralBusinessService">
+    <wsdl:operation name="statusToSet">
+      <wsdl:input message="tns:statusToSet" name="statusToSet">
+      </wsdl:input>
+      <wsdl:output message="tns:statusToSetResponse" name="statusToSetResponse">
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getPermitRequestStatus">
+      <wsdl:input message="tns:getPermitRequestStatus" name="getPermitRequestStatus">
+      </wsdl:input>
+      <wsdl:output message="tns:getPermitRequestStatusResponse" name="getPermitRequestStatusResponse">
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="rescindPermit">
+      <wsdl:input message="tns:rescindPermit" name="rescindPermit">
+      </wsdl:input>
+      <wsdl:output message="tns:rescindPermitResponse" name="rescindPermitResponse">
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="echo">
+      <wsdl:input message="tns:echo" name="echo">
+      </wsdl:input>
+      <wsdl:output message="tns:echoResponse" name="echoResponse">
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="submitPermitRequest">
+      <wsdl:input message="tns:submitPermitRequest" name="submitPermitRequest">
+      </wsdl:input>
+      <wsdl:output message="tns:submitPermitRequestResponse" name="submitPermitRequestResponse">
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="StructuralBusinessServiceServiceSoapBinding" type="tns:StructuralBusinessService">
+    <soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="statusToSet">
+      <soap:operation soapAction="" style="rpc"/>
+      <wsdl:input name="statusToSet">
+        <soap:body namespace="http://ws.solarvillage.bfarr.redhat.com/" use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="statusToSetResponse">
+        <soap:body namespace="http://ws.solarvillage.bfarr.redhat.com/" use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getPermitRequestStatus">
+      <soap:operation soapAction="" style="rpc"/>
+      <wsdl:input name="getPermitRequestStatus">
+        <soap:body namespace="http://ws.solarvillage.bfarr.redhat.com/" use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getPermitRequestStatusResponse">
+        <soap:body namespace="http://ws.solarvillage.bfarr.redhat.com/" use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="rescindPermit">
+      <soap:operation soapAction="" style="rpc"/>
+      <wsdl:input name="rescindPermit">
+        <soap:body namespace="http://ws.solarvillage.bfarr.redhat.com/" use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="rescindPermitResponse">
+        <soap:body namespace="http://ws.solarvillage.bfarr.redhat.com/" use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="echo">
+      <soap:operation soapAction="" style="rpc"/>
+      <wsdl:input name="echo">
+        <soap:body namespace="http://ws.solarvillage.bfarr.redhat.com/" use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="echoResponse">
+        <soap:body namespace="http://ws.solarvillage.bfarr.redhat.com/" use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="submitPermitRequest">
+      <soap:operation soapAction="" style="rpc"/>
+      <wsdl:input name="submitPermitRequest">
+        <soap:body namespace="http://ws.solarvillage.bfarr.redhat.com/" use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="submitPermitRequestResponse">
+        <soap:body namespace="http://ws.solarvillage.bfarr.redhat.com/" use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="StructuralBusinessServiceService">
+    <wsdl:port binding="tns:StructuralBusinessServiceServiceSoapBinding" name="StructuralBusinessServicePort">
+      <soap:address location="http://localhost:8080/jaxws-pojo-endpoint/StructuralBusinessService"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

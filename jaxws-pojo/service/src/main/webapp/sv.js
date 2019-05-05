@@ -2,11 +2,11 @@ $(document).ready(function() {
 
     $('#step1_button').click(function () {
         jQuery.support.cors = true;
-
+        var urlToCall = $('#step1_url').val().replace('{containerId}', $('#containerid').val());
         $.ajax(
             {
                 type: "POST",
-                url: $('#step1_url').val(),
+                url: urlToCall,
                 data: $('#step1_json').val(),
                 contentType: "application/json; charset=utf-8",
                 headers: {
@@ -15,7 +15,10 @@ $(document).ready(function() {
                     },
                 dataType: "json",
                 success: function (data) {
-                    alert(data);
+                    $('#processInstanceId').val(data);
+                    alert("Process instance created id:" + data);
+                    $('#step2_json').val('');
+                     $("#tabs").tabs("option", "active", 2);
                 },
                 error: function (msg, url, line) {
                     alert('error trapped msg = ' + msg + ', url = ' + url + ', line = ' + line);
@@ -38,12 +41,26 @@ $(document).ready(function() {
                     },
                 dataType: "json",
                 success: function (data) {
-                    $('#step2_json').val(JSON.stringify(data));
+
+                    var formattedData = JSON.stringify(data, null, '\t');
+                    $('#step2_json').val(formattedData);
                     var s = '';
+                    var firstItem;
                     jQuery.each(data["task-summary"], function(index, item) {
-                        s = s + ' ' + item["task-id"];
+                        if (!firstItem && item["task-proc-inst-id"] == $('#processInstanceId').val() &&
+                            item["task-name"] == 'New Order') {
+                            firstItem = item["task-id"];
+                            $('#currentTaskId').val(firstItem);
+                        }
+                        if (item["task-proc-inst-id"] == $('#processInstanceId').val() &&
+                                                    item["task-name"] == 'New Order') {
+                            s = s + ' ' + item["task-id"];
+                        }
                     });
-                    alert("Tasks available :" + s);
+                    alert("These New Order tasks are available for current process :" + s);
+                    if (firstItem) {
+                        alert("Defaulting using task of " + firstItem );
+                    }
                 },
                 error: function (msg, url, line) {
                     alert('error trapped msg = ' + msg + ', url = ' + url + ', line = ' + line);
@@ -53,19 +70,46 @@ $(document).ready(function() {
      });
 
      $('#step3_button').click(function () {
-        doPut($('#step3_url').val());
+        var urlToCall = $('#step3_url').val().replace('{containerId}', $('#containerid').val());
+        urlToCall = urlToCall.replace('{taskid}', $('#currentTaskId').val());
+        doPut(urlToCall,4);
      });
 
     $('#step4_button').click(function () {
-        doPut($('#step4_url').val());
+        var urlToCall = $('#step4_url').val().replace('{containerId}', $('#containerid').val());
+        urlToCall = urlToCall.replace('{taskid}', $('#currentTaskId').val());
+        doPut(urlToCall,5);
      });
 
      $('#step5_button').click(function () {
-             doPut($('#step5_url').val());
+        var urlToCall = $('#step5_url').val().replace('{containerId}', $('#containerid').val());
+        urlToCall = urlToCall.replace('{taskid}', $('#currentTaskId').val());
+             doPut(urlToCall,7);
           });
 
+    $('#step45_button').click(function () {
+        jQuery.support.cors = true;
 
-     function doPut(urlToCall) {
+        $.ajax(
+            {
+                type: "GET",
+                url: $('#step45_url').val(),
+                contentType: "application/json; charset=utf-8",
+                headers: {
+                        'Accept': 'text/html',
+                        'Authorization': "Basic " + btoa($("#username1").val() + ":" + $("#password1").val())
+                    },
+                success: function (data) {
+                    //$('#abcid').html(data);
+                },
+                error: function (msg, url, line) {
+                    alert('error trapped msg = ' + msg + ', url = ' + url + ', line = ' + line);
+
+                }
+            });
+     });
+
+     function doPut(urlToCall, tabid) {
         jQuery.support.cors = true;
 
          $.ajax(
@@ -81,6 +125,7 @@ $(document).ready(function() {
                      if (xhr.readyState == 4) {
                          if (xhr.status == 201) {
                              alert("Updated");
+                             $("#tabs").tabs("option", "active", tabid);
                          }
                      } else {
                          alert("Failed");
