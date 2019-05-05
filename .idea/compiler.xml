@@ -7,9 +7,11 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="datamodel" />
-        <module name="jaxws-pojo-client" />
         <module name="jaxws-pojo-service" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="jaxws-pojo-client" target="1.8" />
+    </bytecodeTargetLevel>
   </component>
 </project>
