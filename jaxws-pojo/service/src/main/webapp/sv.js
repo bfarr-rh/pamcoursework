@@ -69,38 +69,58 @@ $(document).ready(function() {
             });
      });
 
-     $('#step3_button').click(function () {
-        var urlToCall = $('#step3_url').val().replace('{containerId}', $('#containerid').val());
+     $('#step3a_button').click(function () {
+        var urlToCall = $('#step3a_url').val().replace('{containerId}', $('#containerid').val());
         urlToCall = urlToCall.replace('{taskid}', $('#currentTaskId').val());
         doPut(urlToCall,4);
      });
 
-    $('#step4_button').click(function () {
-        var urlToCall = $('#step4_url').val().replace('{containerId}', $('#containerid').val());
+    $('#step3b_button').click(function () {
+        var urlToCall = $('#step3b_url').val().replace('{containerId}', $('#containerid').val());
         urlToCall = urlToCall.replace('{taskid}', $('#currentTaskId').val());
-        doPut(urlToCall,5);
+        doPut(urlToCall,4);
      });
 
-     $('#step5_button').click(function () {
-        var urlToCall = $('#step5_url').val().replace('{containerId}', $('#containerid').val());
+     $('#step3c_button').click(function () {
+        var urlToCall = $('#step3c_url').val().replace('{containerId}', $('#containerid').val());
         urlToCall = urlToCall.replace('{taskid}', $('#currentTaskId').val());
-             doPut(urlToCall,7);
+             doPut(urlToCall,5);
           });
 
-    $('#step45_button').click(function () {
+    $('#step4_button').click(function () {
         jQuery.support.cors = true;
 
         $.ajax(
             {
                 type: "GET",
-                url: $('#step45_url').val(),
+                url: $('#step4_url').val(),
                 contentType: "application/json; charset=utf-8",
                 headers: {
-                        'Accept': 'text/html',
+                        'Accept': 'application/json',
                         'Authorization': "Basic " + btoa($("#username1").val() + ":" + $("#password1").val())
                     },
+                dataType: "json",
                 success: function (data) {
-                    //$('#abcid').html(data);
+
+                    var formattedData = JSON.stringify(data, null, '\t');
+                    $('#step4_json').val(formattedData);
+                    var s = '';
+                    var firstItem;
+                    jQuery.each(data["task-summary"], function(index, item) {
+                        if (!firstItem && item["task-proc-inst-id"] == $('#processInstanceId').val() &&
+                            item["task-name"] == 'Hoa Approval') {
+                            firstItem = item["task-id"];
+                            $('#currentTaskId').val(firstItem);
+                        }
+                        if (item["task-proc-inst-id"] == $('#processInstanceId').val() &&
+                                                    item["task-name"] == 'Hoa Approval') {
+                            s = s + ' ' + item["task-id"];
+                        }
+                    });
+                    alert("These Hoa Approval tasks are available for current process :" + s);
+                    if (firstItem) {
+                        alert("Defaulting using task of " + firstItem );
+                    }
                 },
                 error: function (msg, url, line) {
                     alert('error trapped msg = ' + msg + ', url = ' + url + ', line = ' + line);
@@ -108,6 +128,77 @@ $(document).ready(function() {
                 }
             });
      });
+
+    $('#step5a_button').click(function () {
+        jQuery.support.cors = true;
+        var urlToCall = $('#step5_url').val().replace('{containerId}', $('#containerid').val());
+        urlToCall = urlToCall.replace('{processInstanceId}', $('#processInstanceId').val());
+        $.ajax(
+            {
+                type: "GET",
+                url: urlToCall,
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                headers: {
+                        'Accept': '*/*',
+                        'Authorization': "Basic " + btoa($("#username1").val() + ":" + $("#password1").val())
+                    },
+                success: function (data) {
+                    var formattedData = JSON.stringify(data, null, '\t');
+                    $('#step5a_json').val(formattedData);
+                },
+                error: function (msg, url, line) {
+                    alert('error trapped msg = ' + msg + ', url = ' + url + ', line = ' + line);
+
+                }
+            });
+     });
+
+    $('#step5b_button').click(function () {
+        jQuery.support.cors = true;
+        var urlToCall = $('#step5_url').val().replace('{containerId}', $('#containerid').val());
+        urlToCall = urlToCall.replace('{processInstanceId}', $('#processInstanceId').val());
+        var jsonToSend = $('#step5b_json').val();
+        $.ajax(
+            {
+                type: "POST",
+                url: urlToCall,
+                data: jsonToSend,
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                headers: {
+                        'Accept': '*/*',
+                        'Authorization': "Basic " + btoa($("#username1").val() + ":" + $("#password1").val())
+                    },
+                success: function (data) {
+                    alert('Updated');
+                },
+                error: function (msg, url, line) {
+                    alert('error trapped msg = ' + msg + ', url = ' + url + ', line = ' + line);
+
+                }
+            });
+     });
+
+ $('#step6a_button').click(function () {
+        var urlToCall = $('#step6a_url').val().replace('{containerId}', $('#containerid').val());
+        urlToCall = urlToCall.replace('{taskid}', $('#currentTaskId').val());
+        doPut(urlToCall,4);
+     });
+
+    $('#step6b_button').click(function () {
+        var urlToCall = $('#step6b_url').val().replace('{containerId}', $('#containerid').val());
+        urlToCall = urlToCall.replace('{taskid}', $('#currentTaskId').val());
+        doPut(urlToCall,4);
+     });
+
+     $('#step6c_button').click(function () {
+        var urlToCall = $('#step6c_url').val().replace('{containerId}', $('#containerid').val());
+        urlToCall = urlToCall.replace('{taskid}', $('#currentTaskId').val());
+             doPut(urlToCall,5);
+          });
+
+
 
      function doPut(urlToCall, tabid) {
         jQuery.support.cors = true;
