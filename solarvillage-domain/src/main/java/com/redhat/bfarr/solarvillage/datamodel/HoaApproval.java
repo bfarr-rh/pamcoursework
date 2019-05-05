@@ -6,31 +6,17 @@ import java.util.Date;
 public class HoaApproval implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
-	private Date date;
+
 	private String hoaName;
-	private Integer newOrderId;
 	private String notes;
 	private String salesAgentName;
 	private String status = Status.NONE.value();
 
-	public Date getDate() {
-		return date;
-	}
-	public void setDate(Date date) {
-		this.date = date;
-	}
 	public String getHoaName() {
 		return hoaName;
 	}
 	public void setHoaName(String hoaName) {
 		this.hoaName = hoaName;
-	}
-	public Integer getNewOrderId() {
-		return newOrderId;
-	}
-	public void setNewOrderId(Integer newOrderId) {
-		this.newOrderId = newOrderId;
 	}
 	public String getNotes() {
 		return notes;
